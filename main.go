@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"gee"
 	"net/http"
 )
@@ -12,12 +11,12 @@ import (
 */
 func main() {
 	engine := gee.New()
-	engine.RegisterGetRouter("/", func(writer http.ResponseWriter, request *http.Request) {
-		fmt.Fprintf(writer, "request success\ndo something of get method...")
+	engine.RegisterGetRouter("/", func(c *gee.Context) {
+		c.WriteString(http.StatusOK, "success")
 	})
-	engine.RegisterPostRouter("/hello", func(writer http.ResponseWriter, request *http.Request) {
-		name := request.FormValue("name")
-		fmt.Fprintf(writer, "hello...%s", name)
+	engine.RegisterPostRouter("/hello", func(c *gee.Context) {
+		name := c.FormValue("name")
+		c.WriteString(http.StatusOK, "hello...%s", name)
 	})
 	err := engine.StartServer(":8099")
 	if err != nil {
