@@ -11,6 +11,7 @@ type Context struct {
 	Req        *http.Request
 	Path       string
 	Method     string
+	Params     map[string]string
 	StatusCode int
 }
 
